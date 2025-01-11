@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <err.h>
 
+#define DEBUG_MODE 0
 // OPCODE for mutex | thread functinos
 typedef	enum e_opcode
 {
@@ -33,6 +34,16 @@ typedef	enum e_opcode
 	JOIN,
 	DETACH,
 }		t_opcode;
+
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	DIED,
+}			t_philo_status;
 
 typedef enum	e_time_code
 {
@@ -60,6 +71,8 @@ typedef struct s_philo
 	t_fork		*first_fork:
 	t_fork		*second_fork;
 	pthread_t	thread_id;
+	t_mtx		philo_mutex;
+	t_table		*table;
 }		t_philo;
 
 struct s_table
@@ -73,6 +86,7 @@ struct s_table
 	bool	end_simulation; //a philo dies or all are full
 	bool	all_threads_ready;
 	t_mtx	table_mutex;
+	t_mtx	write_mutex;
 	t_fork	*forks;
 	t_philo	*philos; 
 
