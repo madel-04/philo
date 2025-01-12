@@ -29,7 +29,7 @@ static void	eat(t_philo *philo)
 
 static void	thinking(t_philo *philo)
 {
-	
+	write_status(THINKING, philo, DEBUG_MODE);
 }
 
 void	*dinner_simulation(void *data)
