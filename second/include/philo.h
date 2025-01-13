@@ -61,6 +61,9 @@ void	ft_sleep(long long time);
 
 // *** FUNCTIONS ***
 size_t	ft_strlen(char *str);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+int		ft_atoi(const char *str);
 
 // *** HEALTH MONITOR ***
 t_philo	*setup_health_monitor(t_philo *philosopher);
@@ -75,5 +78,10 @@ void    start_eating(t_philo *philosopher);
 void    release_forks(t_philo *philosopher);
 void    start_sleeping(t_philo *philosopher);
 void    start_thinking(t_philo *philosopher);
+
+// *** VALIDATE X ARGUMENTS ***
+bool	validate_num_must_eat(const char *arg);
+bool	validate_time_argument(const char *arg);
+bool	validate_num_philosophers(const char *arg);
 
 #endif

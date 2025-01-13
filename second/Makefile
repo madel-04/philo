@@ -16,14 +16,20 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 NAME		= philosophers
 
-SRC			= functions/init.c \
-				functions/main.c \
-				functions/parsing.c \
-				functions/utils.c \
+SRC			= src/health_monitor.c \
+				src/main.c \
+				src/philo_actions.c \
+				src/philo_threads.c \
+				src/simulation_init.c \
+				utils/functions.c \
+				utils/parse_args.c \
+				utils/print_status.c \
+				utils/utils.c \
+				utils/validate_X_args.c \
 
 OBJ			= $(SRC:%.c=%.o)
 
-INCLUDE		= include/philosopher.h
+INCLUDE		= include/philo.h
 
 all: $(NAME)
 

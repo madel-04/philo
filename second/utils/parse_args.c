@@ -28,11 +28,11 @@ static bool	is_valid_input(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (false);
-	if (!validate_num_philosophers(argv[1])
-		|| !validate_time_argument(argv[2])
+	if (!validate_num_philosophers(argv[1]) //TODO
+		|| !validate_time_argument(argv[2]) //TODO
 		|| !validate_time_argument(argv[3])
 		|| !validate_time_argument(argv[4])
-		|| (argc == 6 && !validate_num_must_eat(argv[5])))
+		|| (argc == 6 && !validate_num_must_eat(argv[5]))) //TODO
 	{
 		return (false);
 	}
@@ -46,7 +46,7 @@ bool	parse_arguments(int argc, char **argv, t_philo *philo_info)
 		ft_error_parse_msg();
 		return (false);
 	}
-	philo_info->num_philosophers = ft_atoi(argv[1]);
+	philo_info->num_philosophers = ft_atoi(argv[1]); //TODO
 	philo_info->time_to_die = ft_atoi(argv[2]);
 	philo_info->time_to_eat = ft_atoi(argv[3]);
 	philo_info->time_to_sleep = ft_atoi(argv[4]);
