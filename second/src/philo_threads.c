@@ -12,13 +12,13 @@
 
 #include "philo.h"
 
-static void	*philo_lifecycle(void *philo)
+void	*philo_lifecycle(void *philo)
 {
 	t_philo	*philosopher;
 
 	philosopher = (t_philo *)philo;
 	if (philosopher->id % 2 == 0)
-		ft_sleep(10); //TOODO
+		ft_sleep(10);
 	while (1)
 	{
 		get_fork(philosopher);
@@ -38,7 +38,7 @@ void	start_philosopher_threads(t_philo *philosophers)
 	{
 		philosophers[i].start_time = ft_get_time();
 		pthread_create(&philosophers[i].philo_thread, NULL,
-						philo_lifecycle, &philosophers[i]);
+			philo_lifecycle, &philosophers[i]);
 		pthread_detach(philosophers[i].philo_thread);
 	}
 }

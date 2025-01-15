@@ -28,3 +28,25 @@ void	ft_sleep(long long time)
 	while (ft_get_time() - start_time < time)
 		usleep(100);
 }
+
+void	clean_all(t_philo *philosophers, t_philo *health_monitor)
+{
+	int	i;
+
+	i = -1;
+	ft_sleep(philosophers->time_to_die + philosophers->time_to_eat
+		+ philosophers->time_to_sleep + 100);
+	while (++i < philosophers->num_philosophers)
+	{
+		pthread_mutex_destroy(&philosophers[i].fork_mutex[i]);
+		pthread_mutex_destroy(philosophers[i].protection_mutex);
+	}
+	pthread_mutex_destroy(health_monitor->protection_mutex);
+	free(philosophers->fork_mutex);
+	free(philosophers->meals_eaten);
+	free(philosophers->last_meal_time);
+	free(philosophers->protection_mutex);
+	free(philosophers);
+	philosophers = NULL;
+	free(health_monitor);
+}

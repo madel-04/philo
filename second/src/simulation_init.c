@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static pthread_mutex_t	*initialize_forks(int num_philosophers)
+pthread_mutex_t	*initialize_forks(int num_philosophers)
 {
 	int				i;
 	pthread_mutex_t	*forks;
@@ -26,7 +26,7 @@ static pthread_mutex_t	*initialize_forks(int num_philosophers)
 	return (forks);
 }
 
-static long long initialized_last_meal_time(int num_philosophers)
+long long	*initialized_last_meal_time(int num_philosophers)
 {
 	int			i;
 	long long	*last_meal_time;
@@ -40,7 +40,8 @@ static long long initialized_last_meal_time(int num_philosophers)
 	return (last_meal_time);
 }
 
-static void 	initialize_philos_data(t_philo *philos_initialized, t_philo *philo_info, pthread_mutex_t *num_forks, long long *last_meal_time)
+void	initialize_philos_data(t_philo *philos_initialized, t_philo *philo_info,
+	pthread_mutex_t *num_forks, long long *last_meal_time)
 {
 	int	i;
 	int	*meals;
@@ -50,7 +51,7 @@ static void 	initialize_philos_data(t_philo *philos_initialized, t_philo *philo_
 		return ;
 	memset(meals, 0, sizeof(int) * philo_info->num_philosophers);
 	i = -1;
-	while (++i < philo_info_num_philosophers)
+	while (++i < philo_info->num_philosophers)
 	{
 		philos_initialized[i].id = i + 1;
 		philos_initialized[i].meals_eaten = meals;
@@ -66,7 +67,7 @@ static void 	initialize_philos_data(t_philo *philos_initialized, t_philo *philo_
 	free(philo_info);
 }
 
-static	t_philo *initialize_philosophers(t_philo *philo_info)
+t_philo	*initialize_philosophers(t_philo *philo_info)
 {
 	t_philo			*philos_initialized;
 	pthread_mutex_t	*forks;
@@ -77,16 +78,17 @@ static	t_philo *initialize_philosophers(t_philo *philo_info)
 		return (NULL);
 	forks = initialize_forks(philo_info->num_philosophers);
 	last_meal_time = initialized_last_meal_time(philo_info->num_philosophers);
-	initialize_philos_data(philos_initialized, philo_info, forks, last_meal_time);
+	initialize_philos_data(philos_initialized, philo_info, forks,
+		last_meal_time);
 	return (philos_initialized);
 }
 
-t_philo *initialize_simulation	(int argc, char **argv)
+t_philo	*initialize_simulation(int argc, char **argv)
 {
 	t_philo	*philo_info;
 	t_philo	*philosophers_initialized;
 
-	philo_info = malloc(sizeof(t_philo))
+	philo_info = malloc(sizeof(t_philo));
 	if (!philo_info)
 		return (NULL);
 	if (!parse_arguments(argc, argv, philo_info))

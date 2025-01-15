@@ -12,12 +12,19 @@
 
 #include "philo.h"
 
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
+
 static bool	is_numeric(const char *str)
 {
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
-			return (flase);
+			return (false);
 		str++;
 	}
 	return (true);
@@ -50,5 +57,5 @@ bool	validate_num_must_eat(const char *arg)
 		ft_putstr_fd("Error: Invalid Number of Time\n", 2);
 		return (false);
 	}
-	return (true);	
+	return (true);
 }

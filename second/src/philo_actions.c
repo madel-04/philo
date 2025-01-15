@@ -12,16 +12,17 @@
 
 #include "philo.h"
 
-void    get_fork(t_philo *philosopher)
+void	get_fork(t_philo *philosopher)
 {
 	pthread_mutex_lock(&philosopher->fork_mutex[philosopher->id -1]);
 	if (philosopher->id == 1)
-		pthread_mutex_lock(&philosopher->fork_mutex[philosopher->num_philosophers -1]);
+		pthread_mutex_lock(&philosopher->fork_mutex
+		[philosopher->num_philosophers -1]);
 	else
 		pthread_mutex_lock(&philosopher->fork_mutex[philosopher->id - 2]);
-	pthreaad_mutex_lock(philosopher->protection_mutex);
+	pthread_mutex_lock(philosopher->protection_mutex);
 	print_status(philosopher, "has taken a fork");
-	pthread_mutex_unlock(philosopger->protection_mutex);
+	pthread_mutex_unlock(philosopher->protection_mutex);
 }
 
 void	start_eating(t_philo *philosopher)
@@ -37,8 +38,9 @@ void	start_eating(t_philo *philosopher)
 void	release_forks(t_philo *philosopher)
 {
 	pthread_mutex_unlock(&philosopher->fork_mutex[philosopher->id - 1]);
-	if(philosopher->id == 1)
-		pthread_mutex_unlock(&philosopher->fork_mutex[philosopher->num_philosophers - 1]);
+	if (philosopher->id == 1)
+		pthread_mutex_unlock(&philosopher->fork_mutex
+		[philosopher->num_philosophers - 1]);
 	else
 		pthread_mutex_unlock(&philosopher->fork_mutex[philosopher->id - 2]);
 }

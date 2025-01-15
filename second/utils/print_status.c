@@ -23,7 +23,7 @@ void	print_status(t_philo *philo, char *action)
 	color[4] = MAGENTA;
 	color[5] = CYAN;
 	write(1, color[philo->id % 6], ft_strlen(color[philo->id % 6]));
-	ft_putnbr_fd(ft_get_time() - philo->start_time, 1); //TODO
+	ft_putnbr_fd(ft_get_time() - philo->start_time, 1);
 	write(1, "\t", 1);
 	ft_putnbr_fd(philo->id, 1);
 	write(1, "\t", 1);

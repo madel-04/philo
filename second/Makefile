@@ -10,41 +10,46 @@
 #                                                                              #
 # **************************************************************************** #
 
-AR			= ar rcs
-RM			= rm -f
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-NAME		= philosophers
+NAME = philo
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread
+OBJ_DIR = obj/
+SRC_DIR = src/
+UTILS_DIR = utils/
+INCLUDES = -I include/
 
-SRC			= src/health_monitor.c \
-				src/main.c \
-				src/philo_actions.c \
-				src/philo_threads.c \
-				src/simulation_init.c \
-				utils/functions.c \
-				utils/parse_args.c \
-				utils/print_status.c \
-				utils/utils.c \
-				utils/validate_X_args.c \
+SRC = $(SRC_DIR)health_monitor.c \
+      $(SRC_DIR)main.c \
+      $(SRC_DIR)philo_actions.c \
+      $(SRC_DIR)philo_threads.c \
+      $(SRC_DIR)simulation_init.c \
+      $(UTILS_DIR)functions.c \
+      $(UTILS_DIR)parse_args.c \
+      $(UTILS_DIR)print_status.c \
+      $(UTILS_DIR)utils.c \
+      $(UTILS_DIR)validate_X_arg.c \
 
-OBJ			= $(SRC:%.c=%.o)
-
-INCLUDE		= include/philo.h
+OBJ = $(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRC)))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(INCLUDE)
-		$(AR) $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJ)
 
-%.o: %.c $(INCLUDE)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-.PHONY: clean fclean re
+$(OBJ_DIR)%.o: $(UTILS_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
